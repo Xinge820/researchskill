@@ -1,29 +1,30 @@
 ---
 name: research-style
-description: 研究任务的总原则（第一性原理、反证、不打补丁、单因素、聚焦主线）。任何研究讨论、实验设计、方法设计开始前先读。
+description: Core research principles - first principles, adversarial self-review, no patches, one change at a time, stay on the main question. Read before any research discussion, experiment, or method design.
 ---
 
-# 研究风格总原则
+# Research Style
 
-## 思考方式
-1. **有理论支撑**：在可分析的框架里做实验（线性化、闭式解、一步更新、动力学模型）。
-2. **第一性原理**：找最本质的原因，不停在症状上。先问"这个量在物理/动力学上代表什么"。
-3. **跨领域**：主动找其他领域的同构问题（卡尔曼新息、Koopman、LSUV、谱偏置、Bures 距离、SADL 供需……），比较后选最优。
-4. **先假设自己错**：站在最强反对者的角度找反例、边界情况，再重新评估（见 strongest-opponent-review）。
-5. **遇瓶颈回看账本**：系统性审视 TARGET.md，把踩过的坑写进 PITFALLS.md 并提炼成规则。
-6. **聚焦**：问题没解决前不随意停、不另提新问题、不偏离主线。
+## How to think
+1. **Work inside an analyzable frame.** Prefer setups you can reason about: linearizations, closed forms, one-step updates, simple dynamical models.
+2. **First principles.** Find the mechanism, not the symptom. Ask what a quantity *means* before optimizing it.
+3. **Borrow across fields.** Look for the same problem elsewhere (control, signal processing, statistics, optimization) and compare solutions before picking one.
+4. **Assume your best idea is wrong.** Argue as the strongest opponent; look for counterexamples and edge cases, then re-evaluate (see `strongest-opponent-review`).
+5. **When stuck, reread the log.** Review the experiment ledger systematically and turn repeated mistakes into rules (`LESSONS.md`).
+6. **Stay on the question.** Do not stop early, spawn new questions, or drift before the current one is answered.
 
-## 硬规则
-1. **不加补丁**。以下一律不用：事后放缩/校准；无原理依据的阈值、下限、eps；用 stop-grad、梯度投影、截断掩盖副作用；新加一项损失去抵消另一项的副作用而不处理原因。
-2. **先诊断后设计**。不知道原因时只测量。
-3. **一次只改一个因素**，基线固定且写明。
-4. **目标是防坍塌，不是完全均匀**。坍塌按"丢信息"判；各向同性高斯只作参考。
-5. **表征质量与预测效果分开报告**。
-6. **请求与实际分开看**：损失"要什么"必须用一步更新实测"实际推了什么"。
-7. **TEST 只在最终报告读**。选配置、早停、选点一律用 VAL。
-8. **效率门槛**：每轮耗时默认 ≤ 1.05× 基线；经用户同意可放宽（如优化器路线 ≤ 1.3×）。
+## Hard rules
+1. **No patches.** Not allowed: post-hoc rescaling or calibration; unprincipled thresholds, floors, or epsilons added to pass a bar; stop-gradient, gradient projection, or clipping used to hide a side effect; a new loss term added to cancel another term's side effect without fixing the cause.
+2. **Diagnose before designing.** If the cause is unknown, only measure.
+3. **One factor at a time.** Every candidate differs from a fixed, named baseline in exactly one way.
+4. **Define the goal by what matters, not by a proxy.** If a proxy (e.g. "closer to a reference distribution") moves the wrong way relative to the real goal, the proxy loses.
+5. **Report mechanism metrics and end-task metrics separately.** Neither alone proves the other.
+6. **Verify mechanism claims by measurement.** "The loss pushes X" must be checked by measuring what one update actually changed (see `intended-vs-actual`).
+7. **Held-out selection only.** Choose configurations, checkpoints, and early stopping on validation data. Read the test set only for the final report.
+8. **Respect the compute budget.** State the per-step cost relative to baseline; relax it only with explicit approval.
 
-## 自我约束
-- 结论强度与证据匹配；被推翻的判断要明说并收回。
-- 不用"再试一个形式"代替找原因：同一症状在两种写法下都出现，先查机制。
-- 擅自改了用户指定的实验条件，要立即说明并改回。
+## Self-discipline
+- Match the strength of a claim to the strength of the evidence.
+- When evidence refutes a claim, say so plainly and retract it.
+- Do not replace "find the cause" with "try another form". If a symptom survives two formulations, investigate the mechanism.
+- If you changed a condition the user specified, say so immediately and revert.

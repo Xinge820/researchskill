@@ -1,29 +1,29 @@
 ---
 name: single-factor-protocol
-description: 对照实验的预注册、单因素检查、噪声底、判据与停止条件。设计、派发或判读任何实验前使用。
+description: Pre-registration, single-factor check, noise floor, decision criteria, and stop conditions for controlled experiments. Use before designing, dispatching, or reading any experiment.
 ---
 
-# 单因素实验协议
+# Single-Factor Protocol
 
-## 派发前（预注册）
-1. **目的**：只问一个问题。
-2. **唯一改动**：相对哪个基线、改了哪一处（写出代码位置）。基线由用户指定，不得擅自更换。
-3. **判据**：预先写好"什么结果支持 / 推翻"，含数值门槛。
-4. **不做什么**：不改损失 / 不接预测 / 不看 TEST / 不碰主线等。
-5. **停止条件**：哪种结果出现就停下汇报，不自行改方案。
-6. **成本**：每轮耗时与基线之比。
+## Before running (pre-register)
+1. **Purpose** - one question only.
+2. **The one change** - relative to which baseline, at which code location. The baseline is fixed and named; never swap it silently.
+3. **Criteria** - write down in advance what result supports or refutes the hypothesis, with numeric thresholds.
+4. **Out of scope** - what must not change (losses, data, test access, main branch).
+5. **Stop condition** - which result means "stop and report" instead of improvising.
+6. **Cost** - per-step time relative to baseline.
 
-## 噪声底
-- GPU 非确定性 + 早停的离散选择会让同配置复跑差 ~0.01（MSE）。
-- 先量：同配置同 seed 复跑 3–5 次 + 多 seed，得每个指标的标准差。
-- 改进需 > ~2σ 或多 seed 配对一致，才算数。单 seed 小差异不下结论。
-- 确定性对照（CUDA deterministic）用于验证"两种实现逐位相同"。
+## Noise floor
+- Nondeterministic kernels and discrete early-stopping choices make reruns of the same config differ.
+- Measure it first: repeat the same config 3-5 times and across seeds; record the standard deviation per metric.
+- Count an improvement only if it exceeds roughly 2σ or holds consistently across paired seeds.
+- Use deterministic mode only to prove two implementations are bit-identical.
 
-## 判读
-- 选配置只看 VAL；TEST 只在最终报告读。
-- 冻结单步先于完整训练；单步过了再跑 48 轮 / 完整训练。
-- 步长要合理（如权重位移 1%–5%），过大步长会制造假的"冲突"。
+## Reading results
+- Select on validation; read test only for the final report.
+- Run a frozen one-step probe before a full training run.
+- Keep one-step probes at realistic step sizes.
 
-## 记录
-- 账本（TARGET.md）每条 ≤ 10 行：改动、关键表、一句结论、最强反证、路径。
-- 被推翻的结论在账本里明确标注撤回。
+## Logging
+- One ledger entry per experiment, ≤ 10 lines: change, key table, one-sentence conclusion, strongest counter-evidence, result path.
+- Mark retracted conclusions explicitly in the ledger.

@@ -1,22 +1,22 @@
 ---
 name: strongest-opponent-review
-description: 在下结论或采纳方案前，站在最强反对者角度找反例、混杂与边界情况。每次读完实验结果、提出新方案时使用。
+description: Before accepting a conclusion or method, argue as its strongest opponent - confounds, shortcuts, mismatched rulers, generalization, noise, metric validity. Use after every result and every new proposal.
 ---
 
-# 最强反对者审查
+# Strongest-Opponent Review
 
-## 每次结论前必问
-1. **混杂**：两组是否不止差一处（池大小、步长、初始化、选点规则、TEST 选择）？
-2. **作弊路径**：指标变好是否来自模型"偷懒"（目标缩小、样本趋同、增益放大、旋转满足逐坐标约束）？
-3. **口径**：比较的量是否在同一把尺子上？比例下降是分子涨还是分母降？
-4. **泛化**：只在求统计量的池内成立，还是在时间分开的留出数据上也成立？
-5. **噪声**：差异是否超过噪声底？几个 seed？
-6. **定义**：指标本身能否区分我们关心的东西（如谱无法区分信息与噪声）？
+## Ask before every conclusion
+1. **Confounds** - do the arms differ in more than one way (pool size, step size, initialization, selection rule, test-set peeking)?
+2. **Shortcuts** - could the metric improve because the model found a cheap way out (shrinking the target, making samples identical, inflating a gain, rotating to satisfy a per-coordinate constraint)?
+3. **Ruler** - are compared quantities on the same ruler? Did a ratio fall because the numerator rose or the denominator fell?
+4. **Generalization** - does it hold only on the pool used to compute the statistic, or also on separate held-out data?
+5. **Noise** - is the difference larger than the noise floor? How many seeds?
+6. **Validity** - can the metric even distinguish the thing we care about?
 
-## 常用反例构造
-- 同谱不同内容：一维存可预测信号，一维存新信息 vs 同方差噪声。
-- 秩 2 表征旋转到 64 个坐标上，每坐标方差都达标。
-- 所有样本读出同一非零向量，RMSNorm 后长度标准。
+## Useful counterexample templates
+- Same spectrum, different content: one dimension holds new information vs. the same-variance noise.
+- A rank-k representation rotated so every coordinate has unit variance.
+- Every sample mapped to one nonzero vector, then per-sample normalized.
 
-## 输出格式
-"最强反证：……。若成立，则结论改为……；下一步用……区分。"
+## Output format
+"Strongest counter-evidence: ... If it holds, the conclusion becomes ...; next, distinguish the two with ..."
