@@ -1,23 +1,24 @@
 # researchskill
 
-A personal research-style skill set for AI research assistants. Each skill is a folder with one `SKILL.md`, grouped by purpose. The skills encode *how* to do research, not facts about any particular project.
+Research principles for AI research assistants, written as skills. Each skill is one transferable principle - how to think, diagnose, experiment, design, collaborate, and communicate - not knowledge about any specific problem or project.
 
 ## Skills
 
-| Category | Skill | Use when |
+| Category | Skill | Principle in one line |
 |---|---|---|
-| 00 Principles | [research-style](00-principles/research-style/SKILL.md) | Before any research discussion, experiment, or method design |
-| 01 Diagnosis | [intended-vs-actual](01-diagnosis/intended-vs-actual/SKILL.md) | An objective "should" work but training does not do what it asks |
-| 01 Diagnosis | [metric-ruler-audit](01-diagnosis/metric-ruler-audit/SKILL.md) | Normalizations, denominators, or pooling scopes are inconsistent or confusing |
-| 01 Diagnosis | [representation-collapse-check](01-diagnosis/representation-collapse-check/SKILL.md) | Judging whether a learned representation has collapsed or lost information |
-| 02 Experiment | [single-factor-protocol](02-experiment/single-factor-protocol/SKILL.md) | Designing, dispatching, or reading any controlled experiment |
-| 02 Experiment | [strongest-opponent-review](02-experiment/strongest-opponent-review/SKILL.md) | Before accepting a conclusion or a proposed method |
-| 03 Method | [first-principles-design](03-method/first-principles-design/SKILL.md) | Designing a new loss, regularizer, optimizer, initialization, or architecture change |
-| 04 Survey | [literature-survey](04-survey/literature-survey/SKILL.md) | The user asks to "survey" / "research" a topic |
-| 05 Agent | [directing-an-executor](05-agent/directing-an-executor/SKILL.md) | Directing another coding/execution agent to run experiments |
-| 06 Writing | [plain-talk](06-writing/plain-talk/SKILL.md) | Every answer, report, or explanation |
-| 06 Writing | [proposal-writing](06-writing/proposal-writing/SKILL.md) | Writing research significance / problem statement / related work |
-| — | [LESSONS.md](LESSONS.md) | General failure patterns turned into rules; append new ones |
+| 00 Overview | [research-style](00-overview/research-style/SKILL.md) | The short list every task starts from |
+| 01 Thinking | [first-principles](01-thinking/first-principles/SKILL.md) | Explain by mechanism, inside a frame you can analyze |
+| 01 Thinking | [strongest-opponent](01-thinking/strongest-opponent/SKILL.md) | Assume you are wrong and try hard to prove it |
+| 01 Thinking | [cross-domain-transfer](01-thinking/cross-domain-transfer/SKILL.md) | Find the same problem in another field before inventing |
+| 02 Diagnosis | [diagnose-before-fix](02-diagnosis/diagnose-before-fix/SKILL.md) | Locate where and when it breaks; check what you asked vs. what happened |
+| 02 Diagnosis | [metric-validity](02-diagnosis/metric-validity/SKILL.md) | A metric is only as good as what it can and cannot see |
+| 03 Experiment | [controlled-experiment](03-experiment/controlled-experiment/SKILL.md) | One change, pre-registered criteria, known noise, held-out decisions |
+| 04 Design | [fix-the-cause](04-design/fix-the-cause/SKILL.md) | No patches; one component, one job |
+| 05 Workflow | [literature-survey](05-workflow/literature-survey/SKILL.md) | Survey means survey, mapped back to our problem |
+| 05 Workflow | [directing-an-executor](05-workflow/directing-an-executor/SKILL.md) | Direct another agent with tight, single-task instructions |
+| 06 Communication | [plain-talk](06-communication/plain-talk/SKILL.md) | Conclusion first, grouped points, details on demand |
+| 06 Communication | [proposal-writing](06-communication/proposal-writing/SKILL.md) | Significance → problems → evidence-backed related work |
+| — | [LESSONS.md](LESSONS.md) | Recurring failure patterns, phrased as general rules |
 
 ## Install
 
@@ -27,12 +28,12 @@ git clone https://github.com/Xinge820/researchskill ~/researchskill
 mkdir -p ~/.claude/skills
 for d in ~/researchskill/*/*/; do ln -sfn "$d" ~/.claude/skills/$(basename "$d"); done
 ```
-`git pull` later updates every skill. Invoke explicitly with `/<skill-name>`, or let the assistant pick skills by their `description`.
+`git pull` updates every skill. Invoke with `/<skill-name>`, or let the assistant choose by `description`.
 
-**Other agents** (e.g. ones that read `AGENTS.md`): reference the file, e.g. "Follow researchskill/06-writing/plain-talk/SKILL.md when answering."
+**Other agents** (e.g. reading `AGENTS.md`): reference a file, e.g. "Follow researchskill/06-communication/plain-talk/SKILL.md when answering."
 
 ## Maintenance rules
 
-- Keep skills project-agnostic: no dataset names, numbers, paths, machines, or personal details.
-- A new lesson goes to `LESSONS.md` first (symptom → root cause → rule). Promote it into a skill once a similar lesson appears twice.
-- One skill, one job. The `description` says *when* to use it.
+- Only universal principles. No project names, datasets, numbers, paths, machines, or personal details; no problem-specific recipes.
+- A new lesson goes to `LESSONS.md` first (symptom → root cause → rule, phrased generally). Promote it into a skill when it recurs.
+- One skill, one principle. The `description` says *when* to apply it.

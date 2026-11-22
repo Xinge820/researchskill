@@ -1,22 +1,21 @@
 # Lessons (symptom → root cause → rule)
 
-General failure patterns. Append new ones; promote to a skill when a pattern recurs.
+Recurring failure patterns, phrased generally. Append new ones; promote to a skill when a pattern recurs.
 
 | # | Symptom | Root cause | Rule |
 |---|---|---|---|
-| 1 | A regularizer looks right but weak directions never grow | The update rule (via the tangent kernel) redirects the request to strong directions | Measure intended vs actual before redesigning the loss |
-| 2 | A "shape" metric looks good while the scale is near zero | The term was not exactly scale-invariant (e.g. an epsilon); shape at near-zero scale is meaningless | Make shape terms exactly scale-invariant; distrust shape metrics at tiny scale |
-| 3 | A per-coordinate variance constraint is satisfied, yet the representation is low-rank | Coordinates can be satisfied by rotation | Define scale and shape in rotation-invariant terms |
-| 4 | Concentration happens within the first few training steps | Tiny initial scale + multiplicative growth: strong directions win early | Start at the right scale (data-dependent initialization) |
-| 5 | Recurrent memory produces spikes on rare inputs after re-scaling | Read/write loop gain > 1 | Check the loop gain; keep state updates contractive |
-| 6 | The target representation shrinks; the model barely beats a zero predictor | A prediction loss through the target can be lowered by shrinking the target | Normalize by the target's centered variance |
-| 7 | After making the loss scale-invariant, the scale drifts freely | Scale became an unconstrained direction | Guard scale with a separate centered-energy term |
-| 8 | Forcing uniformity widens weak directions but hurts decoding | The data cannot support that many directions; the model fills them with noise | Goal is anti-collapse, not uniformity |
-| 9 | After adding a per-sample normalization layer, samples converge | Mean-inclusive scales are satisfied by identical outputs; the anti-collapse term was removed at the same time | Normalization ≠ anti-collapse; compute statistics on centered data |
-| 10 | A Lagrange-multiplier constraint keeps pushing after the target is met | The multiplier accumulates stale error | Be careful with accumulating multipliers; closer to target is not automatically better |
-| 11 | A cheap low-rank second-order approximation keeps only part of the gain | Heavy-tailed curvature and batch-specific requests | Measure request energy outside the kept subspace first |
-| 12 | Two variants seem to conflict in a one-step probe | The probe step was unrealistically large | Use realistic step sizes |
-| 13 | Reruns of the same config disagree | Nondeterminism + discrete early stopping | Measure the noise floor; decide with multiple seeds |
-| 14 | Configurations compared on the test set | Selection rule violated | Select on validation only |
-| 15 | The executor changed the baseline | The instruction did not pin it | Name the baseline in every instruction; revert deviations |
-| 16 | The selected checkpoint is the most collapsed one | The selection metric included the shared mean | Select on the end-task validation metric |
+| 1 | A design looks right on paper but has no effect | What it asks for is not what the execution path delivers | Measure intended vs. actual before redesigning |
+| 2 | A metric looks great in a degenerate state | The metric is undefined or meaningless near that state | Check metrics at the extremes before trusting them |
+| 3 | A constraint is satisfied but the goal is not met | The constraint can be met by a transformation the goal does not care about | Ask what transformations leave the constraint unchanged |
+| 4 | The outcome is decided very early | Starting conditions plus self-reinforcing dynamics | Look at the start of the process, not only the end |
+| 5 | A proxy keeps improving while the end goal worsens | The proxy has a loophole | Find the cheapest way to game a metric before optimizing it |
+| 6 | Fixing one loophole opens a drift elsewhere | The removed pressure was also holding something else in place | After a fix, check what is now unconstrained |
+| 7 | Forcing an ideal shape makes results worse | Demanding more than the data supports fills the gap with noise | Set goals by what matters, not by an idealized reference |
+| 8 | Replacing one component breaks something unrelated | Two jobs were coupled; the replacement dropped one | One component, one job; never remove a job by accident |
+| 9 | An adaptive correction keeps pushing after the target is met | It accumulates stale history | Check whether feedback reflects the current state |
+| 10 | A cheap approximation keeps only part of the benefit | It discards what the problem actually needs | Measure what the approximation drops before adopting it |
+| 11 | Two options seem to conflict | The probe was run at an extreme setting | Probe at realistic settings |
+| 12 | Repeated runs disagree | Hidden nondeterminism and discrete choices | Measure the noise floor; decide with repeats |
+| 13 | A decision was made on the test set | Selection discipline slipped | Decide on validation only |
+| 14 | An executor quietly changed the setup | The instruction did not pin it | Pin baselines and conditions in every instruction |
+| 15 | The "best" selected result is the worst in reality | The selection rule shares the metric's loophole | Select on the end goal measured on held-out data |
