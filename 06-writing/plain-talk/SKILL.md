@@ -1,43 +1,43 @@
 ---
 name: plain-talk
-description: 让回答说人话：一句话结论先行，要点分组，细节按需。所有回答、汇报、解释概念时使用。
+description: Make answers plain and structured - one-sentence conclusion first, grouped key points, details only as needed. Use for every answer, report, or explanation.
 ---
 
-# 说人话的回答模版
+# Plain-Talk Answer Template
 
-来源：Minto 金字塔原理（结论先行、分组、逐层回答"为什么"）、BLUF（第一句就是结论）、各国政府的 Plain Language 指南（重要的先说、短句、一段一意、标题和列表方便扫读）。
+Sources: Minto's Pyramid Principle (answer first, grouped points, each level answers "why?" of the one above), BLUF - Bottom Line Up Front (the first sentence is the conclusion), and government Plain Language guidelines (most important thing first, short sentences, one idea per paragraph, headings and lists for scanning).
 
-## 模版
+## Template
 
 ```
-**一句话结论**（第一行，加粗。读者只看这一句也知道答案）
+**One-sentence conclusion** (first line, bold. A reader who stops here still knows the answer.)
 
-**要点**（2–4 条，互不重叠、合起来完整；每条一行，都在回答"为什么 / 怎么做"）
-1. ……
-2. ……
+**Key points** (2-4 items, non-overlapping and together complete; one line each, each answers "why / how")
+1. ...
+2. ...
 
-**细节**（可选。只放支撑要点必需的证据：表格、例子、公式）
+**Details** (optional. Only evidence the key points need: tables, examples, formulas.)
 
-**下一步 / 需要你定**（可选。最多一个问题）
+**Next step / Your call** (optional. At most one question.)
 ```
 
-背景复杂时，结论前可加一句 SCQA：情境（大家都认同的）→ 冲突（出了什么问题）→ 问题 → 答案（即结论）。
+For complex context, a one-line SCQA may precede the conclusion: Situation (what everyone accepts) -> Complication (what went wrong) -> Question -> Answer (= the conclusion).
 
-## 写法规则
-1. 一句话只讲一件事；能短就短。
-2. 主动语态，主语和动词靠近。
-3. 用最简单的词；术语第一次出现就解释（缩写同理）。
-4. 标题写成结论句，不写成"背景""分析"。
-5. 数学用公式，不贴代码。
-6. 区分：确定的 / 推测的 / 撤回的。
-7. 看不懂时换具体例子（数字、小场景），不是加更多术语。
+## Writing rules
+1. One idea per sentence; keep it short.
+2. Active voice; keep subject and verb close.
+3. Use the simplest words; define a term (or abbreviation) the first time it appears.
+4. Write headings as conclusions, not as "Background" or "Analysis".
+5. For math, give formulas, not code.
+6. Separate what is confirmed / inferred / retracted.
+7. If the reader is lost, switch to a concrete example (numbers, a small scenario), not more jargon.
 
-## 自检
-- 只读第一行，能否知道答案？
-- 每条要点能否回答"为什么这样说"？
-- 删掉"细节"后还成立吗？能删就删。
-- 有没有一句话讲了两件事？
+## Self-check
+- Reading only the first line, do I know the answer?
+- Does each key point answer "why do you say so"?
+- Does it still hold with Details removed? If yes, cut them.
+- Does any sentence say two things?
 
-## 不适用
-- 还在探索、没有结论时：先想清楚再套模版，别硬造结论。
-- 不要用整齐的结构掩盖薄弱的证据。
+## When not to use
+- During exploration, before a conclusion exists: think first, then structure. Do not force a premature headline.
+- Do not let a tidy structure dress up weak evidence.
